@@ -14,6 +14,21 @@
         <result column="remarks" property="remarks" jdbcType="VARCHAR" />
     </resultMap>
 
+
+    <select id="getComboboxList" resultMap="BaseResultMap">
+        SELECT
+            t_customer.customer_id,
+            t_customer.customer_name,
+            t_customer.contacts,
+            t_customer.phone_number,
+            t_customer.address,
+            t_customer.remarks
+        FROM
+            t_customer
+    </select>
+
+
+
     <select id="getCustomerList" resultMap="BaseResultMap">
         SELECT
             t_customer.customer_id,

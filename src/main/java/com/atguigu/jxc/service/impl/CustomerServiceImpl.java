@@ -77,4 +77,10 @@ public class CustomerServiceImpl implements CustomerService {
         return new ServiceVO<>(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
     }
 
+    @Override
+    public List<Customer> getComboboxList() {
+        return customerDao.getComboboxList();
+
+    }
+
 }

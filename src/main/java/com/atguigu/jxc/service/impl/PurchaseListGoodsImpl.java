@@ -1,6 +1,6 @@
 package com.atguigu.jxc.service.impl;
 
-import com.atguigu.jxc.dao.purchaseListGoodsDao;
+import com.atguigu.jxc.dao.PurchaseListGoodsDao;
 import com.atguigu.jxc.entity.PurchaseList;
 import com.atguigu.jxc.entity.PurchaseListGoods;
 import com.atguigu.jxc.service.LogService;
@@ -21,7 +21,7 @@ public class PurchaseListGoodsImpl implements PurchaseListGoodsService {
     @Autowired
     private LogService logService;
     @Autowired
-    private purchaseListGoodsDao purchaseListGoodsDao;
+    private PurchaseListGoodsDao purchaseListGoodsDao;
 
     @Override
     public Map<String, List<PurchaseList>> OrderInquity(String purchaseNumber, Integer supplierId, Integer state, String sTime, String eTime) {

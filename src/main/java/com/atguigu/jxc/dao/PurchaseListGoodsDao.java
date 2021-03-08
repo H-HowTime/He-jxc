@@ -10,7 +10,7 @@ import java.util.List;
  * @author huima9527
  * @create 2021-03-08 13:15
  */
-public interface purchaseListGoodsDao {
+public interface PurchaseListGoodsDao {
     List<PurchaseList> findOrderInquity(@Param("purchaseNumber") String purchaseNumber, @Param("supplierId") Integer supplierId, @Param("state") Integer state, @Param("sTime") String sTime, @Param("eTime") String eTime);
 
     List<PurchaseListGoods> findMerchandiseNewsById(Integer purchaseListId);

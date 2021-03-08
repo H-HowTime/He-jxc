@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.atguigu.jxc.dao.purchaseListGoodsDao">
+<mapper namespace="com.atguigu.jxc.dao.PurchaseListGoodsDao">
     <delete id="DeleteOrder">
         delete from t_purchase_list where purchase_list_id = #{purchaseListId};
     </delete>

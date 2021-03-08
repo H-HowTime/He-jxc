@@ -23,7 +23,13 @@ public class purchaseListGoodsImplTest {
 
     @Test
     public void orderInquity() {
-        Map<String, List<PurchaseList>> map = this.purchaseListGoodsService.OrderInquity("", 1, 1, "2019-08-03", "2021-10-10");
+        Map<String, List<PurchaseList>> map = this.purchaseListGoodsService.OrderInquity("3434", 7, 1, "2019-08-03", "2021-10-10");
+        System.out.println(map);
+    }
+
+    @Test
+    public void MerchandiseNews(){
+        Map<String, Object> map = this.purchaseListGoodsService.MerchandiseNews(134);
         System.out.println(map);
     }
 }

@@ -1,5 +1,8 @@
 package com.atguigu.jxc.service;
 
+import com.atguigu.jxc.entity.PurchaseList;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -8,5 +11,5 @@ import java.util.Map;
  */
 public interface purchaseListGoodsService {
 
-    Map<String, Object> OrderInquity(String purchaseNumber, Integer supplierId, Integer state, String sTime, String eTime);
+    Map<String, List<PurchaseList>> OrderInquity(String purchaseNumber, Integer supplierId, Integer state, String sTime, String eTime);
 }

@@ -1,6 +1,7 @@
 package com.atguigu.jxc.controller;
 
 import com.atguigu.jxc.entity.PurchaseList;
+import com.atguigu.jxc.service.PurchaseListGoodsService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class purchaseListGoodsController {
 
     @Autowired
-    private com.atguigu.jxc.service.purchaseListGoodsService purchaseListGoodsService;
+    private PurchaseListGoodsService purchaseListGoodsService;
 
     @PostMapping("/list")
     public String OrderInquiry(String purchaseNumber, Integer supplierId, Integer state, String sTime,String eTime){
@@ -28,4 +29,5 @@ public class purchaseListGoodsController {
         String OrderMap = gson.toJson(map);
         return OrderMap;
     }
+
 }

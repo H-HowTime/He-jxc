@@ -14,10 +14,10 @@ public class ReturnList {
   private double amountPayable;
   private String remarks;
   private Integer state;
-  private Integer supplierId;
+  private Integer customerId;
   private Integer userId;
 
-  private String supplierName;
+  private String customerName;
   private String trueName;
 
 }

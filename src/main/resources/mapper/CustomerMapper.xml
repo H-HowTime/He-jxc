@@ -14,6 +14,15 @@
         <result column="remarks" property="remarks" jdbcType="VARCHAR" />
     </resultMap>
 
+    <select id="getCustomerNameById" resultType="java.lang.String">
+        SELECT
+        t_customer.customer_name
+        FROM
+        t_customer
+        WHERE
+             t_customer.customer_id = #{customerId}
+    </select>
+
     <select id="getCustomerList" resultMap="BaseResultMap">
         SELECT
             t_customer.customer_id,

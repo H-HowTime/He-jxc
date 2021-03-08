@@ -28,6 +28,9 @@ public interface UserDao {
     // 根据用户id查询用户
     User getUserById(Integer userId);
 
+    // 根据用户id查询用户名
+    String getTrueNameById(Integer userId);
+
     // 根据用户id删除用户
     Integer deleteUser(Integer userId);
 

@@ -20,6 +20,8 @@ public interface SupplierDao {
 
     Supplier getSupplierById(Integer supplierId);
 
+    String getSupplierNameById(Integer supplierId);
+
     Integer deleteSupplier(Integer supplierId);
 
 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.jxc.dao.SaleListGoodsDao">
+
+    <resultMap id="BaseResultMap" type="com.atguigu.jxc.entity.SaleList">
+        <id column="sale_list_id" property="saleListId" jdbcType="INTEGER"/>
+        <result column="sale_Number" property="saleNumber" jdbcType="VARCHAR" />
+        <result column="amount_paid" property="amountPaid" jdbcType="FLOAT" />
+        <result column="amount_payable" property="amountPayable" jdbcType="FLOAT" />
+        <result column="sale_date" property="saleDate" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+        <result column="customer_id" property="customerId" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <association property="customerName" column="customer_id" select="com.atguigu.jxc.dao.CustomerDao.getCustomerNameById"></association>
+        <association property="trueName" column="user_id" select="com.atguigu.jxc.dao.UserDao.getTrueNameById"></association>
+    </resultMap>
+
+    <resultMap id="saleListGoodMap" type="com.atguigu.jxc.entity.SaleListGoods">
+        <id column="sale_list_goods_id" property="saleListGoodsId" jdbcType="INTEGER"/>
+        <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+        <result column="goods_model" property="goodsModel" jdbcType="VARCHAR" />
+        <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+        <result column="goods_unit" property="goodsUnit" jdbcType="VARCHAR" />
+        <result column="price" property="price" jdbcType="FLOAT" />
+        <result column="total" property="total" jdbcType="FLOAT" />
+        <result column="sale_list_id" property="saleListId" jdbcType="INTEGER" />
+        <result column="goods_type_id" property="goodsTypeId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="getSaleListList" resultMap="BaseResultMap">
+        SELECT
+            t_sale_list.sale_list_id,
+            t_sale_list.sale_Number,
+            t_sale_list.amount_paid,
+            t_sale_list.amount_payable,
+            t_sale_list.sale_date,
+            t_sale_list.state,
+            t_sale_list.remarks,
+            t_sale_list.customer_id,
+            t_sale_list.user_id
+        FROM
+            t_sale_list
+        <where>
+            <if test="saleNumber != null and saleNumber != ''">
+                AND t_sale_list.sale_number = #{saleNumber}
+            </if>
+            <if test="customerId != null and customerId != ''">
+                AND t_sale_list.customer_id = #{customerId}
+            </if>
+            <if test="state != null and state != ''">
+                AND t_sale_list.state = #{state}
+            </if>
+            <if test="sTime != null and sTime != ''">
+                AND t_sale_list.sale_date &gt;= #{sTime}
+            </if>
+            <if test="eTime != null and eTime != ''">
+                AND t_sale_list.sale_date &lt;= #{eTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getSaleListGoodsList" resultMap="saleListGoodMap">
+        SELECT * FROM t_sale_list_goods
+        WHERE sale_list_id = #{saleListId}
+    </select>
+
+    <delete id="deleteGoods">
+        delete from t_sale_list_goods
+        where sale_list_id = #{saleListId}
+    </delete>
+
+    <delete id="deleteSaleList">
+        delete from t_sale_list
+        where sale_list_id = #{saleListId}
+    </delete>
+</mapper>

@@ -9,6 +9,7 @@ import java.util.List;
  * @description 客户dao
  */
 public interface CustomerDao {
+    String getCustomerNameById(Integer customerId);
 
     List<Customer> getCustomerList(@Param("offSet") Integer offSet, @Param("pageRow") Integer pageRow, @Param("customerName") String customerName);
 

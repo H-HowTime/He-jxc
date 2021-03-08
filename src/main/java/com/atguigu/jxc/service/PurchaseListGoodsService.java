@@ -12,4 +12,8 @@ import java.util.Map;
 public interface PurchaseListGoodsService {
 
     Map<String, List<PurchaseList>> OrderInquity(String purchaseNumber, Integer supplierId, Integer state, String sTime, String eTime);
+
+    Map<String, Object> MerchandiseNews(Integer purchaseListId);
+
+    void DeleteOrder(Integer purchaseListId);
 }

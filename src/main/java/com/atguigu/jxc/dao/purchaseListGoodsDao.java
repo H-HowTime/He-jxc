@@ -1,6 +1,7 @@
 package com.atguigu.jxc.dao;
 
 import com.atguigu.jxc.entity.PurchaseList;
+import com.atguigu.jxc.entity.PurchaseListGoods;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,4 +12,8 @@ import java.util.List;
  */
 public interface purchaseListGoodsDao {
     List<PurchaseList> findOrderInquity(@Param("purchaseNumber") String purchaseNumber, @Param("supplierId") Integer supplierId, @Param("state") Integer state, @Param("sTime") String sTime, @Param("eTime") String eTime);
+
+    List<PurchaseListGoods> findMerchandiseNewsById(Integer purchaseListId);
+
+    void DeleteOrder(Integer purchaseListId);
 }

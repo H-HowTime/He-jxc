@@ -4,6 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.atguigu.jxc.dao.purchaseListGoodsDao">
+    <delete id="DeleteOrder">
+        delete from t_purchase_list where purchase_list_id = #{purchaseListId};
+    </delete>
 
     <select id="findOrderInquity" resultType="com.atguigu.jxc.entity.PurchaseList">
         SELECT tpl.*,ts.supplier_name,tu.true_name
@@ -14,7 +17,7 @@
         ON tpl.user_id = tu.user_id
         <where>
             <if test="purchaseNumber != null and purchaseNumber != ''">
-                and tpl.purchase_number = #{purchaseNumber}
+                and tpl.purchase_number like CONCAT('%',#{purchaseNumber},'%')
             </if>
             <if test="supplierId != null and supplierId != ''">
                 and ts.supplier_id = #{supplierId}
@@ -26,5 +29,24 @@
                 and tpl.purchase_date BETWEEN #{sTime} and #{eTime}
             </if>
         </where>
+    </select>
+
+    <select id="findMerchandiseNewsById" resultType="com.atguigu.jxc.entity.PurchaseListGoods">
+        SELECT
+            purchase_list_goods_id,
+            goods_id,
+            goods_code,
+            goods_name,
+            goods_model,
+            goods_unit,
+            goods_num,
+            price,
+            total,
+            purchase_list_id,
+            goods_type_id
+        FROM
+            t_purchase_list_goods tp
+        WHERE
+            tp.purchase_list_id = #{purchaseListId};
     </select>
 </mapper>

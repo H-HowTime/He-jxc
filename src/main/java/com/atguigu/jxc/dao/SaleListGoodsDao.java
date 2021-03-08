@@ -1,0 +1,27 @@
+package com.atguigu.jxc.dao;
+
+import com.atguigu.jxc.domain.SaleDataDayVo;
+import com.atguigu.jxc.domain.SaleListGoodsVo;
+import com.atguigu.jxc.entity.DamageList;
+import com.atguigu.jxc.entity.DamageListGoods;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+/**
+ * @description 商品报损
+ */
+@Mapper
+public interface SaleListGoodsDao {
+
+    Integer updateState(Integer saleListId);
+
+    List<SaleListGoodsVo> count(@Param("sTime") String sTime,
+                                @Param("eTime") String eTime,
+                                @Param("goodsTypeId") Integer goodsTypeId,
+                                @Param("codeOrName") String codeOrName);
+
+    List<SaleDataDayVo> getSaleDataByDay(@Param("sTime") String sTime,
+                                         @Param("eTime") String eTime);
+}

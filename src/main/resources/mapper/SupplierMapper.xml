@@ -91,5 +91,17 @@
         WHERE supplier_id = #{supplierId}
     </delete>
 
+    <select id="getComboboxList" resultType="com.atguigu.jxc.entity.Supplier">
+        SELECT
+            supplier_id supplierId,
+            supplier_name supplierName,
+            contacts,
+            phone_number phoneNumber,
+            address,
+            remarks
+        FROM
+            `t_supplier`
+        WHERE supplier_name LIKE CONCAT('%',#{p},'%');
+    </select>
 
 </mapper>

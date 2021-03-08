@@ -7,6 +7,7 @@ import com.atguigu.jxc.entity.Log;
 import com.atguigu.jxc.entity.Supplier;
 import com.atguigu.jxc.service.SupplierService;
 import com.atguigu.jxc.service.LogService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,6 +62,12 @@ public class SupplierServiceImpl implements SupplierService {
 
         return new ServiceVO<>(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
 
+    }
+
+    @Override
+    public List<Supplier> getComboboxList(String q) {
+        List<Supplier> suppliers = this.supplierDao.getComboboxList(q);
+        return suppliers;
     }
 
     @Override

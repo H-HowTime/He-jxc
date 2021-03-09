@@ -1,7 +1,8 @@
 package com.atguigu.jxc.dao;
 
-import com.atguigu.jxc.domain.SaleDataDayVo;
-import com.atguigu.jxc.domain.SaleListGoodsVo;
+
+import com.atguigu.jxc.domain.SaleDataVo;
+import com.atguigu.jxc.domain.SaleListGoodsVoH;
 import com.atguigu.jxc.entity.DamageList;
 import com.atguigu.jxc.entity.DamageListGoods;
 import com.atguigu.jxc.entity.SaleList;
@@ -19,13 +20,13 @@ public interface SaleListGoodsDao {
 
     Integer updateState(Integer saleListId);
 
-    List<SaleListGoodsVo> count(@Param("sTime") String sTime,
-                                @Param("eTime") String eTime,
-                                @Param("goodsTypeId") Integer goodsTypeId,
-                                @Param("codeOrName") String codeOrName);
+    List<SaleListGoodsVoH> count(@Param("sTime") String sTime,
+                                 @Param("eTime") String eTime,
+                                 @Param("goodsTypeId") Integer goodsTypeId,
+                                 @Param("codeOrName") String codeOrName);
 
-    List<SaleDataDayVo> getSaleDataByDay(@Param("sTime") String sTime,
-                                         @Param("eTime") String eTime);
+    List<SaleDataVo> getSaleDataByDay(@Param("sTime") String sTime,
+                                      @Param("eTime") String eTime);
 
 
 

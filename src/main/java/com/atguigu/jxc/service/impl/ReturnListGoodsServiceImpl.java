@@ -1,9 +1,12 @@
 package com.atguigu.jxc.service.impl;
 
+import com.atguigu.jxc.dao.ReturnListDao;
 import com.atguigu.jxc.dao.ReturnListGoodsDao;
 import com.atguigu.jxc.domain.ErrorCode;
 import com.atguigu.jxc.domain.ServiceVO;
 import com.atguigu.jxc.domain.SuccessCode;
+import com.atguigu.jxc.entity.CustomerReturnList;
+import com.atguigu.jxc.entity.CustomerReturnListGoods;
 import com.atguigu.jxc.entity.ReturnList;
 import com.atguigu.jxc.entity.ReturnListGoods;
 import com.atguigu.jxc.service.GoodsService;
@@ -49,7 +52,7 @@ public class ReturnListGoodsServiceImpl implements ReturnListGoodsService {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            return new ServiceVO(ErrorCode.STORE_OUT_OF_ERROR_CODE, ErrorCode.STORE_OUT_OF_ERROR_MESS);
+            return new ServiceVO(ErrorCode.NONE_STROE_ERROR_CODE, ErrorCode.NONE_STROE_ERROR_MESS);
         }
         this.returnListGoodsDao.save(returnListGoodsList);
         return new ServiceVO(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
@@ -104,7 +107,7 @@ public class ReturnListGoodsServiceImpl implements ReturnListGoodsService {
             customerReturnListGoods.setPrice(p.getPrice());
             customerReturnListGoods.setGoodsUnit(p.getGoodsUnit());
             customerReturnListGoods.setTotal(p.getTotal());
-            returnListGoodsDao.save(customerReturnListGoods);
+            returnListGoodsDao.saveCust(customerReturnListGoods);
 
             Integer count = goodsService.query(p.getGoodsId());
 

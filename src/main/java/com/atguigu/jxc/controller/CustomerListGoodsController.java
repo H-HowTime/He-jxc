@@ -28,7 +28,7 @@ public class CustomerListGoodsController {
     public ServiceVO<Object> save(@RequestParam("returnNumber")String returnNumber,
                                   CustomerReturnList customerReturnList,
                                   String customerReturnListGoodsStr) {
-        returnListGoodsService.save(customerReturnList,customerReturnListGoodsStr,returnNumber);
+        returnListGoodsService.saveCust(customerReturnList,customerReturnListGoodsStr,returnNumber);
          return new ServiceVO<>(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
     }
 

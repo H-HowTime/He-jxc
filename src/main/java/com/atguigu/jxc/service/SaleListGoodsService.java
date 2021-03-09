@@ -1,5 +1,7 @@
 package com.atguigu.jxc.service;
 
+import com.atguigu.jxc.entity.SaleList;
+
 import java.util.Map;
 
 /**
@@ -21,5 +23,7 @@ public interface SaleListGoodsService {
     void deleteGoods(Integer saleListId);
 
     void save(SaleList saleList, String saleListGoodsStr, String saleNumber);
+
+    String getSaleDataByMonth(String sTime, String eTime);
 }
 

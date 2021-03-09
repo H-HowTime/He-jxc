@@ -47,7 +47,7 @@ public class ReturnListGoodsController {
 
         ServiceVO serviceVO = this.returnListGoodsService.save(returnListGoodsStr, returnListId);
 
-        return new ServiceVO(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
+        return serviceVO;
     }
 
 

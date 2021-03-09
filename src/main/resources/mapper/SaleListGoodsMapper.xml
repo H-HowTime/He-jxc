@@ -11,7 +11,7 @@
         WHERE sale_list_id = #{saleListId}
     </update>
 
-    <resultMap id="countResultMap" type="com.atguigu.jxc.domain.SaleListGoodsVo">
+    <resultMap id="countResultMap" type="com.atguigu.jxc.domain.SaleListGoodsVoH">
         <id column="sale_list_goods_id" property="id"/>
         <result column="sale_number" property="number"/>
         <result column="state" property="type"/>
@@ -57,7 +57,7 @@
         </where>
     </select>
 
-    <resultMap id="getSaleDataByDayMap" type="com.atguigu.jxc.domain.SaleDataDayVo">
+    <resultMap id="getSaleDataByDayMap" type="com.atguigu.jxc.domain.SaleDataVo">
         <result column="sale_date" property="date"/>
         <result column="purchase_date" property="purchaseDate"/>
         <result column="saleTotal" property="saleTotal"/>
@@ -79,7 +79,7 @@
 
 
 
-    <resultMap id="BaseResultMap" type="com.atguigu.jxc.entity.SaleList">
+    <resultMap id="BaseResultMapZ" type="com.atguigu.jxc.entity.SaleList">
         <id column="sale_list_id" property="saleListId" jdbcType="INTEGER"/>
         <result column="sale_Number" property="saleNumber" jdbcType="VARCHAR" />
         <result column="amount_paid" property="amountPaid" jdbcType="FLOAT" />
@@ -107,7 +107,7 @@
         <result column="goods_type_id" property="goodsTypeId" jdbcType="INTEGER" />
     </resultMap>
 
-    <select id="getSaleListList" resultMap="BaseResultMap">
+    <select id="getSaleListList" resultMap="BaseResultMapZ">
         SELECT
         t_sale_list.sale_list_id,
         t_sale_list.sale_Number,

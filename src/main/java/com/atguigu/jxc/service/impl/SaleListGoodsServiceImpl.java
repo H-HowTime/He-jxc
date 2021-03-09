@@ -1,21 +1,26 @@
 package com.atguigu.jxc.service.impl;
 
+import com.atguigu.jxc.dao.SaleListDao;
 import com.atguigu.jxc.dao.SaleListGoodsDao;
-import com.atguigu.jxc.domain.SaleDataDayVo;
-import com.atguigu.jxc.domain.SaleListGoodsVo;
+
+import com.atguigu.jxc.domain.SaleDataVo;
+import com.atguigu.jxc.domain.SaleListGoodsVoH;
 import com.atguigu.jxc.entity.SaleList;
 import com.atguigu.jxc.entity.SaleListGoods;
+import com.atguigu.jxc.service.GoodsService;
 import com.atguigu.jxc.service.SaleListGoodsService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author hehao
@@ -39,7 +44,7 @@ public class SaleListGoodsServiceImpl implements SaleListGoodsService {
 
     @Override
     public String count(String sTime, String eTime, Integer goodsTypeId, String codeOrName) {
-        List<SaleListGoodsVo> saleListGoodsVos = this.saleListGoodsDao.count(sTime, eTime, goodsTypeId, codeOrName);
+        List<SaleListGoodsVoH> saleListGoodsVos = this.saleListGoodsDao.count(sTime, eTime, goodsTypeId, codeOrName);
         Gson gson = new Gson();
         return gson.toJson(saleListGoodsVos);
     }
@@ -47,7 +52,7 @@ public class SaleListGoodsServiceImpl implements SaleListGoodsService {
     @Override
     public String getSaleDataByDay(String sTime, String eTime) {
         //日销售总额、成本总额、盈利总额数据
-        List<SaleDataDayVo> saleDataDayVos = saleListGoodsDao.getSaleDataByDay(sTime, eTime);
+        List<SaleDataVo> saleDataDayVos = saleListGoodsDao.getSaleDataByDay(sTime, eTime);
         if (CollectionUtils.isEmpty(saleDataDayVos)) {
             return null;
         }
@@ -146,5 +151,40 @@ public class SaleListGoodsServiceImpl implements SaleListGoodsService {
             //System.out.println(p.toString());
         }
 
+    }
+
+    @Override
+    public String getSaleDataByMonth(String sTime, String eTime) {
+        //进行字符串拼接
+        String sTimeD = sTime + "-1";
+        String eTimeD = eTime + "-31";
+        String saleDataByMonthJson = this.getSaleDataByDay(sTimeD, eTimeD);
+        if(StringUtils.isEmpty(saleDataByMonthJson)){
+            return null;
+        }
+        Gson gson = new Gson();
+        List<SaleDataVo> saleDataMonthVos  = gson.fromJson(saleDataByMonthJson, new TypeToken<List<SaleDataVo>>() {
+        }.getType());
+        List<SaleDataVo> saleDataVosSub = saleDataMonthVos.stream().map(saleDataVo -> {
+            saleDataVo.setDate(saleDataVo.getDate().substring(0, 7));
+            return saleDataVo;
+        }).collect(Collectors.toList());
+        System.out.println(gson.toJson(saleDataVosSub));
+        for (int i = 0;i < saleDataVosSub.size() - 1;i++){
+            if(saleDataVosSub.get(i).getDate().equals(saleDataVosSub.get(i + 1).getDate())){
+                saleDataVosSub.get(i).setSaleTotal(saleDataVosSub.get(i).getSaleTotal() + saleDataVosSub.get(i+1).getSaleTotal());
+                saleDataVosSub.get(i).setPurchasingTotal(saleDataVosSub.get(i).getPurchasingTotal() + saleDataVosSub.get(i+1).getPurchasingTotal());
+                saleDataVosSub.get(i).setProfit(saleDataVosSub.get(i).getSaleTotal() + saleDataVosSub.get(i+1).getProfit());
+                saleDataVosSub.get(i + 1).setSaleTotal(saleDataVosSub.get(i).getSaleTotal() + saleDataVosSub.get(i+1).getSaleTotal());
+                saleDataVosSub.get(i + 1).setPurchasingTotal(saleDataVosSub.get(i).getPurchasingTotal() + saleDataVosSub.get(i+1).getPurchasingTotal());
+                saleDataVosSub.get(i + 1).setProfit(saleDataVosSub.get(i).getSaleTotal() + saleDataVosSub.get(i+1).getProfit());
+            }
+        }
+        Map<String,SaleDataVo> map = new HashMap<>();
+        saleDataVosSub.forEach(saleDataVo ->
+            map.put(saleDataVo.getDate(),saleDataVo)
+        );
+        Collection<SaleDataVo> saleDataVoCollection = map.values();
+        return gson.toJson(saleDataVoCollection);
     }
 }

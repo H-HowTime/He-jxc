@@ -5,7 +5,7 @@
 
 <mapper namespace="com.atguigu.jxc.dao.CustomerReturnListGoodsDao">
 
-    <resultMap id="countResultMap" type="com.atguigu.jxc.domain.SaleListGoodsVo">
+    <resultMap id="countResultMap" type="com.atguigu.jxc.domain.SaleListGoodsVoH">
         <id column="customer_return_list_goods_id" property="id"/>
         <result column="return_number" property="number"/>
         <result column="state" property="type"/>

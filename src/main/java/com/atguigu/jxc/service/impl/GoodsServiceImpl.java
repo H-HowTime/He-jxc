@@ -231,7 +231,7 @@ public class GoodsServiceImpl implements GoodsService {
     public ServiceVO decrStore(Integer goodsId, Integer inventoryQuantity) {
         Goods goods = this.goodsDao.findByGoodsId(goodsId);
         if (goods ==null){
-            return new ServiceVO(ErrorCode.STORE_OUT_OF_ERROR_CODE, ErrorCode.STORE_OUT_OF_ERROR_MESS);
+            return new ServiceVO(ErrorCode.NONE_STROE_ERROR_CODE, ErrorCode.NONE_STROE_ERROR_MESS);
         }
         Integer inventoryQuantityStore = goods.getInventoryQuantity();
         if (inventoryQuantityStore >= inventoryQuantity){
@@ -239,7 +239,7 @@ public class GoodsServiceImpl implements GoodsService {
             this.goodsDao.updateGoods(goods);
             return new ServiceVO(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
         }else {
-            return new ServiceVO(ErrorCode.STORE_OUT_OF_ERROR_CODE, ErrorCode.STORE_OUT_OF_ERROR_MESS);
+            return new ServiceVO(ErrorCode.NONE_STROE_ERROR_CODE, ErrorCode.NONE_STROE_ERROR_MESS);
         }
     }
 

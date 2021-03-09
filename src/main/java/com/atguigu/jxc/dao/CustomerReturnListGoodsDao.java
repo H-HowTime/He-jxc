@@ -1,6 +1,7 @@
 package com.atguigu.jxc.dao;
 
-import com.atguigu.jxc.domain.SaleListGoodsVo;
+
+import com.atguigu.jxc.domain.SaleListGoodsVoH;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,5 +12,5 @@ import java.util.List;
  */
 @Mapper
 public interface CustomerReturnListGoodsDao {
-    List<SaleListGoodsVo> count(String sTime, String eTime, Integer goodsTypeId, String codeOrName);
+    List<SaleListGoodsVoH> count(String sTime, String eTime, Integer goodsTypeId, String codeOrName);
 }

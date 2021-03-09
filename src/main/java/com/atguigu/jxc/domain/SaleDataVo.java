@@ -7,7 +7,7 @@ import lombok.Data;
  * @create 2021-03-08 16:55
  */
 @Data
-public class SaleDataDayVo {
+public class SaleDataVo {
     private String date;//销售日期
     private String purchaseDate;//购买日期
     private Double saleTotal;//销售总金额

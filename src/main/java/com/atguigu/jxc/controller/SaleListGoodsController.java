@@ -2,6 +2,7 @@ package com.atguigu.jxc.controller;
 
 import com.atguigu.jxc.domain.ServiceVO;
 import com.atguigu.jxc.domain.SuccessCode;
+import com.atguigu.jxc.entity.SaleList;
 import com.atguigu.jxc.service.SaleListGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,6 +58,18 @@ public class SaleListGoodsController {
                                    @RequestParam("eTime") String eTime) {
         String saleDataDayVosJson = this.saleListGoodsService.getSaleDataByDay(sTime, eTime);
         return saleDataDayVosJson;
+    }
+
+    /**
+     * 按月统计分析
+     *
+     * @return
+     */
+    @PostMapping("/getSaleDataByMonth")
+    public String getSaleDataByMonth(@RequestParam("sTime") String sTime,
+                                   @RequestParam("eTime") String eTime) {
+        String saleDataByMonthVosJson = this.saleListGoodsService.getSaleDataByMonth(sTime, eTime);
+        return saleDataByMonthVosJson;
     }
     /**
      *

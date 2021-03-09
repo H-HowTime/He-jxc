@@ -8,18 +8,64 @@
         VALUES
         <foreach collection="purchaseListGoodsList" item="purchaseListGoods" index="index" separator=",">
             (
-                #{purchaseListGoods.goodsId},
-                #{purchaseListGoods.goodsCode},
-                #{purchaseListGoods.goodsName},
-                #{purchaseListGoods.goodsModel},
-                #{purchaseListGoods.goodsUnit},
-                #{purchaseListGoods.goodsNum},
-                #{purchaseListGoods.price},
-                #{purchaseListGoods.total},
-                #{purchaseListGoods.purchaseListId},
-                #{purchaseListGoods.goodsTypeId}
+            #{purchaseListGoods.goodsId},
+            #{purchaseListGoods.goodsCode},
+            #{purchaseListGoods.goodsName},
+            #{purchaseListGoods.goodsModel},
+            #{purchaseListGoods.goodsUnit},
+            #{purchaseListGoods.goodsNum},
+            #{purchaseListGoods.price},
+            #{purchaseListGoods.total},
+            #{purchaseListGoods.purchaseListId},
+            #{purchaseListGoods.goodsTypeId}
             )
         </foreach>
     </insert>
 
+    <update id="updateState" >
+        update t_purchase_list set state = 1 where purchase_list_id = #{purchaseListId}
+    </update>
+
+
+    <resultMap id="countResult" type="com.atguigu.jxc.vo.OrderVO">
+        <id column="purchase_list_id" property="purchaseListId"/>
+        <result column="purchase_number" property="number"/>
+        <result column="purchase_date" property="date"/>
+        <result column="supplier_id" property="supplierId"/>
+        <result column="supplier_name" property="supplierName"/>
+        <result column="goods_code" property="code"/>
+        <result column="goods_name" property="name"/>
+        <result column="goods_model" property="model"/>
+        <result column="goods_unit" property="unit"/>
+        <result column="goods_num" property="num"/>
+        <result column="price" property="price"/>
+        <result column="total" property="total"/>
+        <result column="goods_type_id" property="goodsTypeId"/>
+        <result column="goods_type_name" property="goodsType"/>
+    </resultMap>
+
+    <select id="count" resultMap="countResult">
+        select t1.`purchase_list_id`, t1.`purchase_number`, t1.`purchase_date`,
+        t2.`supplier_id`, t2.`supplier_name`,
+        t3.`goods_code`, t3.`goods_name`, t3.`goods_model`, t3.`goods_unit`, t3.`goods_num`, t3.`price`, t3.`total`,
+        t4.`goods_type_id`, t4.`goods_type_name`
+        from t_purchase_list t1
+        left join t_supplier t2
+        on t1.`supplier_id` = t2.`supplier_id`
+        left join t_purchase_list_goods t3
+        on t1.`purchase_list_id` = t3.`purchase_list_id`
+        left join t_goods_type t4
+        on t3.`goods_type_id` = t4.`goods_type_id`
+        <where>
+            <if test="codeOrName != null">
+                (t3.`goods_code`like concat('%',#{codeOrName},'%') or t3.`goods_name` like concat('%',#{codeOrName},'%'))
+            </if>
+            <if test="goodsTypeId != null">
+                and t4.`goods_type_id` = 11
+            </if>
+            <if test="sTime != null || eTime != null">
+                and (t1.`purchase_date` between #{sTime} and #{eTime});
+            </if>
+        </where>
+    </select>
 </mapper>

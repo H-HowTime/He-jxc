@@ -13,4 +13,10 @@ import java.util.List;
 public interface PurchaseListGoodsDao {
 
     void save(@Param("purchaseListGoodsList") List<PurchaseListGoods> purchaseListGoodsList);
+
+
+
+    int updateState(@Param("purchaseListId") Integer purchaseListId);
+
+    List<OrderVO> count(String sTime, String eTime, Integer goodsTypeId, String codeOrName);
 }

@@ -11,4 +11,7 @@ public interface PurchaseListGoodsService {
 
     void save(String purchaseListGoodsStr, Integer purchaseListId);
 
+    void updateState(Integer purchaseListId);
+
+    String count(String sTime, String eTime, Integer goodsTypeId, String codeOrName);
 }

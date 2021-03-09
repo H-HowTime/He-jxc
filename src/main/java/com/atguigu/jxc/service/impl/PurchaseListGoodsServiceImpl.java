@@ -35,4 +35,17 @@ public class PurchaseListGoodsServiceImpl implements PurchaseListGoodsService {
         });
         this.purchaseListGoodsDao.save(purchaseListGoodsList);
     }
+
+
+    public PurchaseListGoodsServiceImpl() {
+    }
+
+    public void updateState(Integer purchaseListId) {
+    }
+
+    public String count(String sTime, String eTime, Integer goodsTypeId, String codeOrName) {
+        List<OrderVO> orderVOList = this.purchaseListGoodsDao.count(sTime, eTime, goodsTypeId, codeOrName);
+        Gson gson = new Gson();
+        return gson.toJson(orderVOList);
+    }
 }

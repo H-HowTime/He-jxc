@@ -43,7 +43,7 @@ public class ReturnListGoodsController {
         this.returnListService.save(returnList, request.getSession());
         Integer returnListId = returnList.getReturnListId();
 
-        this.returnListGoodsService.save(returnListGoodsStr, returnListId);
+        ServiceVO serviceVO = this.returnListGoodsService.save(returnListGoodsStr, returnListId);
 
         return new ServiceVO(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
     }

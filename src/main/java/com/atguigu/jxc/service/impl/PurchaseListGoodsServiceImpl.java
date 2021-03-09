@@ -1,8 +1,10 @@
 package com.atguigu.jxc.service.impl;
 
 import com.atguigu.jxc.dao.PurchaseListGoodsDao;
+import com.atguigu.jxc.domain.ServiceVO;
 import com.atguigu.jxc.entity.PurchaseList;
 import com.atguigu.jxc.entity.PurchaseListGoods;
+import com.atguigu.jxc.service.GoodsService;
 import com.atguigu.jxc.service.PurchaseListGoodsService;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -26,12 +28,17 @@ public class PurchaseListGoodsServiceImpl implements PurchaseListGoodsService {
     @Autowired
     private PurchaseListGoodsDao purchaseListGoodsDao;
 
+    @Autowired
+    private GoodsService goodsService;
+
+
     @Override
     public void save(String purchaseListGoodsStr, Integer purchaseListId) {
         Gson gson = new Gson();
         List<PurchaseListGoods> purchaseListGoodsList = gson.fromJson(purchaseListGoodsStr, new TypeToken<List<PurchaseListGoods>>() {}.getType());
         purchaseListGoodsList.forEach(purchaseListGoods -> {
             purchaseListGoods.setPurchaseListId(purchaseListId);
+            goodsService.incrStore(purchaseListGoods.getGoodsId(), purchaseListGoods.getGoodsNum());
         });
         this.purchaseListGoodsDao.save(purchaseListGoodsList);
     }

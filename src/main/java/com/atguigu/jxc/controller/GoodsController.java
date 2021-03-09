@@ -21,15 +21,28 @@ import java.util.Map;
 @RequestMapping("/goods")
 public class GoodsController {
 
+
     @Autowired
     private GoodsService goodsService;
 
+    /**
+     *  新增库存
+     * @param goodsId
+     * @param inventoryQuantity
+     * @return
+     */
     @GetMapping("incrStore")
     public ServiceVO incrStore(Integer goodsId,Integer inventoryQuantity){
         this.goodsService.incrStore(goodsId, inventoryQuantity);
         return new ServiceVO(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
     }
 
+    /**
+     *  减少库存
+     * @param goodsId
+     * @param inventoryQuantity
+     * @return
+     */
     @GetMapping("decrStore")
     public ServiceVO decrStore(Integer goodsId,Integer inventoryQuantity){
         return  this.goodsService.decrStore(goodsId, inventoryQuantity);

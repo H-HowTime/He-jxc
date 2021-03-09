@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wrsstart
@@ -56,5 +58,31 @@ public class PurchaseListGoodsServiceImpl implements PurchaseListGoodsService {
         List<OrderVO> orderVOList = this.purchaseListGoodsDao.count(sTime, eTime, goodsTypeId, codeOrName);
         Gson gson = new Gson();
         return gson.toJson(orderVOList);
+    }
+
+    @Override
+    public Map<String, List<PurchaseList>> OrderInquity(String purchaseNumber, Integer supplierId, Integer state, String sTime, String eTime) {
+        //TOOD: 此处应判断传递参数是否合法
+
+
+        HashMap<String, List<PurchaseList>> map = new HashMap();
+        List<PurchaseList> orderInquity = purchaseListGoodsDao.findOrderInquity(purchaseNumber, supplierId, state, sTime, eTime);
+        //前端接收类型为Json，key必须为rows
+        map.put("rows", orderInquity);
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> MerchandiseNews(Integer purchaseListId) {
+        HashMap<String, Object> map = new HashMap<>();
+        List<PurchaseListGoods> purchaseListGoods = this.purchaseListGoodsDao.findMerchandiseNewsById(purchaseListId);
+        //前端接收类型为Json，key必须为rows
+        map.put("rows", purchaseListGoods);
+        return map;
+    }
+
+    @Override
+    public void DeleteOrder(Integer purchaseListId) {
+        this.purchaseListGoodsDao.DeleteOrder(purchaseListId);
     }
 }

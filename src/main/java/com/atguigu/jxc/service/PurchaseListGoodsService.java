@@ -3,6 +3,7 @@ package com.atguigu.jxc.service;
 import com.atguigu.jxc.entity.PurchaseList;
 import com.atguigu.jxc.entity.PurchaseListGoods;
 
+import java.util.List;
 import java.util.Map;
 
 /**

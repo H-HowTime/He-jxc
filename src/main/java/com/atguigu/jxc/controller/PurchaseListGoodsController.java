@@ -1,4 +1,4 @@
-package com.atguigu.jxc.controller.controller;
+package com.atguigu.jxc.controller;
 
 import com.atguigu.jxc.domain.ServiceVO;
 import com.atguigu.jxc.domain.SuccessCode;

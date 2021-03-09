@@ -14,10 +14,9 @@ public class PurchaseListGoodsServiceImpl implements PurchaseListGoodsService {
     @Autowired
     private PurchaseListGoodsDao purchaseListGoodsDao;
 
-    public PurchaseListGoodsServiceImpl() {
-    }
 
     public void updateState(Integer purchaseListId) {
+        purchaseListGoodsDao.updateState(purchaseListId);
     }
 
     public String count(String sTime, String eTime, Integer goodsTypeId, String codeOrName) {

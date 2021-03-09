@@ -8,6 +8,7 @@ import com.atguigu.jxc.entity.Goods;
 import com.atguigu.jxc.entity.Log;
 import com.atguigu.jxc.service.GoodsService;
 import com.atguigu.jxc.service.LogService;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -211,6 +212,29 @@ public class GoodsServiceImpl implements GoodsService {
         logService.save(new Log(Log.UPDATE_ACTION,goods.getGoodsName()+"商品清除库存"));
 
         return new ServiceVO<>(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
+    }
+
+
+    @Override
+    public void incrStore(Integer goodsId, Integer inventoryQuantity) {
+        Goods goods = this.goodsDao.findByGoodsId(goodsId);
+        if (goods == null){
+            return;
+        }
+        goods.setInventoryQuantity(goods.getInventoryQuantity() + inventoryQuantity);
+    }
+
+    @Override
+    public ServiceVO decrStore(Integer goodsId, Integer inventoryQuantity) {
+        Goods goods = this.goodsDao.findByGoodsId(goodsId);
+
+        Integer inventoryQuantityStore = goods.getInventoryQuantity();
+        if (inventoryQuantityStore >= inventoryQuantity){
+            goods.setInventoryQuantity(goods.getInventoryQuantity() - inventoryQuantity);
+            return new ServiceVO(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
+        }else {
+            return new ServiceVO(ErrorCode.STORE_OUT_OF_ERROR_CODE, ErrorCode.STORE_OUT_OF_ERROR_MESS);
+        }
     }
 
     @Override

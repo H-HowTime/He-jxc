@@ -86,6 +86,15 @@
             t_goods
     </select>
 
+    <select id="query" resultType="java.lang.Integer">
+        SELECT
+            inventory_quantity
+        FROM
+            t_goods
+        WHERE
+            t_goods.goods_id = #{goodsId}
+    </select>
+
     <insert id="saveGoods" useGeneratedKeys="true" keyProperty="goodsId" parameterType="com.atguigu.jxc.entity.Goods">
         INSERT INTO t_goods
         (

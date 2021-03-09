@@ -29,4 +29,7 @@ public interface GoodsService {
     ServiceVO saveStock(Integer goodsId,Integer inventoryQuantity,double purchasingPrice);
 
     Map<String,Object> listAlarm();
+
+
+  Integer query(Integer goodsId);
 }

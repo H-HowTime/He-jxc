@@ -5,6 +5,7 @@ import com.atguigu.jxc.dao.GoodsDao;
 import com.atguigu.jxc.dao.ReturnListDao;
 import com.atguigu.jxc.dao.ReturnListGoodsDao;
 import com.atguigu.jxc.entity.*;
+import com.atguigu.jxc.service.GoodsService;
 import com.atguigu.jxc.service.ReturnListGoodsService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -24,6 +25,8 @@ public class ReturnListGoodsServiceImpl implements ReturnListGoodsService {
     private ReturnListDao returnListDao;
     @Autowired
     private ReturnListGoodsDao returnListGoodsDao;
+    @Autowired
+    private GoodsService goodsService;
 //    @Autowired
 ////    private GoodsDao goodsDao;
 
@@ -53,6 +56,13 @@ public class ReturnListGoodsServiceImpl implements ReturnListGoodsService {
             customerReturnListGoods.setGoodsUnit(p.getGoodsUnit());
             customerReturnListGoods.setTotal(p.getTotal());
             returnListGoodsDao.save(customerReturnListGoods);
+
+            Integer count = goodsService.query(p.getGoodsId());
+
+            Integer s=count +p.getGoodsNum();
+
+            goodsService.saveStock(p.getGoodsId(),s,p.getPrice());
+
             //System.out.println(p.toString());
         }
 

@@ -38,4 +38,6 @@ public interface GoodsDao {
 
     // 查询当前库存小于最小库存的商品
     List<Goods> getGoodsAlarm();
+
+    Integer query(Integer goodsId);
 }

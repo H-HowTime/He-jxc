@@ -3,9 +3,12 @@ package com.atguigu.jxc.service.impl;
 
 import com.atguigu.jxc.dao.SaleListDao;
 import com.atguigu.jxc.dao.SaleListGoodsDao;
+import com.atguigu.jxc.domain.ErrorCode;
 import com.atguigu.jxc.domain.SaleListGoodsVO;
+import com.atguigu.jxc.domain.ServiceVO;
 import com.atguigu.jxc.entity.SaleList;
 import com.atguigu.jxc.entity.SaleListGoods;
+import com.atguigu.jxc.service.GoodsService;
 import com.atguigu.jxc.service.SaleListGoodsService;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -19,6 +22,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +38,13 @@ public class SaleListGoodsServiceImpl implements SaleListGoodsService {
     private SaleListGoodsDao saleListGoodsDao;
     @Autowired
     private SaleListDao saleListDao;
+    @Autowired
+    private GoodsService goodsService;
 
 
     @SneakyThrows
     @Override
+    @Transactional
     public void save(SaleList saleList, String saleListGoodsStr, String saleNumber) {
         saleList.setSaleNumber(saleNumber);
         saleListDao.save(saleList);
@@ -65,6 +72,17 @@ public class SaleListGoodsServiceImpl implements SaleListGoodsService {
             saleListGoods.setPrice(p.getPrice());
             saleListGoods.setSaleListId(p.getSaleListId());
             saleListGoodsDao.save(saleListGoods);
+            Integer count = goodsService.query(p.getGoodsId());
+
+
+            if (count>=p.getGoodsNum()){
+                Integer s= count-p.getGoodsNum();
+
+                goodsService.saveStock(p.getGoodsId(),s,p.getPrice());
+            }else {
+                throw new RuntimeException("该商品库存数量不足");
+            }
+
             //System.out.println(p.toString());
         }
 

@@ -1,15 +1,16 @@
 package com.atguigu.jxc.controller;
 
 import com.atguigu.jxc.domain.ServiceVO;
+import com.atguigu.jxc.domain.SuccessCode;
 import com.atguigu.jxc.entity.Goods;
 import com.atguigu.jxc.service.GoodsService;
+import com.sun.net.httpserver.Authenticator;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,6 +22,7 @@ public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
+
 
     /**
      * 分页查询商品库存信息
@@ -71,6 +73,14 @@ public class GoodsController {
     public ServiceVO save(Goods goods) {
         return goodsService.save(goods);
     }
+
+    @RequestMapping("/query")
+    @ResponseBody
+    public ServiceVO query(Integer goodsId) {
+        Integer counts = goodsService.query(goodsId);
+        return ServiceVO.ok();
+    }
+
 
     /**
      * 删除商品信息

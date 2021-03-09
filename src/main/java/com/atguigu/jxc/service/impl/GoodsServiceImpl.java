@@ -25,6 +25,8 @@ public class GoodsServiceImpl implements GoodsService {
     private LogService logService;
     @Autowired
     private GoodsDao goodsDao;
+    @Autowired
+    private GoodsService goodsService;
 /*    @Autowired
     private SaleListGoodsService saleListGoodsService;
     @Autowired
@@ -225,4 +227,13 @@ public class GoodsServiceImpl implements GoodsService {
 
         return map;
     }
+
+    @Override
+    public Integer query(Integer goodsId) {
+        Integer counts = goodsDao.query(goodsId);
+        //System.out.println(counts+"==========================================================================");
+        return counts;
+    }
+
+
 }

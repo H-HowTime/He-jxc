@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.jxc.dao.SaleListDao">
+
+    <resultMap id="BaseResultMap" type="com.atguigu.jxc.entity.SaleList">
+        <result column="sale_list_id" property="saleListId" jdbcType="INTEGER" />
+        <result column="sale_number" property="saleNumber" jdbcType="VARCHAR" />
+        <result column="amount_paid" property="amountPaid" jdbcType="DOUBLE" />
+        <result column="amount_payable" property="amountPayable" jdbcType="DOUBLE" />
+        <result column="sale_date" property="saleDate" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+        <result column="customer_id" property="customerId" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+    </resultMap>
+
+
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="saleListId" parameterType="com.atguigu.jxc.entity.SaleList">
+        INSERT INTO t_sale_list
+        (sale_list_id, sale_number, amount_paid, amount_payable, sale_date,state,remarks,customer_id,user_id)
+        VALUES (#{saleListId}, #{saleNumber}, #{amountPaid}, #{amountPayable},
+        #{saleDate}, #{state}, #{remarks}, #{customerId}, #{userId})
+    </insert>
+
+
+
+
+
+</mapper>

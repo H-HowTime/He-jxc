@@ -32,5 +32,5 @@ public interface GoodsService {
 
     void incrStore(Integer goodsId, Integer inventoryQuantity);
 
-  ServiceVO decrStore(Integer goodsId, Integer inventoryQuantity);
+    ServiceVO decrStore(Integer goodsId, Integer inventoryQuantity);
 }

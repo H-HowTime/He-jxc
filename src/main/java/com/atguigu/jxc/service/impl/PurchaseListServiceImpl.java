@@ -1,5 +1,6 @@
 package com.atguigu.jxc.service.impl;
 
+import com.atguigu.jxc.dao.GoodsDao;
 import com.atguigu.jxc.dao.PurchaseListDao;
 import com.atguigu.jxc.entity.PurchaseList;
 import com.atguigu.jxc.entity.User;
@@ -24,6 +25,7 @@ public class PurchaseListServiceImpl implements PurchaseListService {
     private PurchaseListDao purchaseListDao;
 
 
+
     @Override
     public int save(PurchaseList purchaseList, String purchaseNumber, HttpSession session) {
         User user = (User) session.getAttribute("currentUser");
@@ -31,6 +33,7 @@ public class PurchaseListServiceImpl implements PurchaseListService {
         purchaseList.setPurchaseNumber(purchaseNumber);
         purchaseList.setUserId(userId);
         int purchaseListId = this.purchaseListDao.save(purchaseList);
+
         return purchaseListId;
     }
 }

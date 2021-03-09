@@ -222,15 +222,19 @@ public class GoodsServiceImpl implements GoodsService {
             return;
         }
         goods.setInventoryQuantity(goods.getInventoryQuantity() + inventoryQuantity);
+        this.goodsDao.updateGoods(goods);
     }
 
     @Override
     public ServiceVO decrStore(Integer goodsId, Integer inventoryQuantity) {
         Goods goods = this.goodsDao.findByGoodsId(goodsId);
-
+        if (goods ==null){
+            return new ServiceVO(ErrorCode.STORE_OUT_OF_ERROR_CODE, ErrorCode.STORE_OUT_OF_ERROR_MESS);
+        }
         Integer inventoryQuantityStore = goods.getInventoryQuantity();
         if (inventoryQuantityStore >= inventoryQuantity){
             goods.setInventoryQuantity(goods.getInventoryQuantity() - inventoryQuantity);
+            this.goodsDao.updateGoods(goods);
             return new ServiceVO(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
         }else {
             return new ServiceVO(ErrorCode.STORE_OUT_OF_ERROR_CODE, ErrorCode.STORE_OUT_OF_ERROR_MESS);

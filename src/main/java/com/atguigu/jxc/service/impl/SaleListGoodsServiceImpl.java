@@ -3,6 +3,8 @@ package com.atguigu.jxc.service.impl;
 import com.atguigu.jxc.dao.SaleListGoodsDao;
 import com.atguigu.jxc.domain.SaleDataDayVo;
 import com.atguigu.jxc.domain.SaleListGoodsVo;
+import com.atguigu.jxc.entity.SaleList;
+import com.atguigu.jxc.entity.SaleListGoods;
 import com.atguigu.jxc.service.SaleListGoodsService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

@@ -4,6 +4,8 @@ import com.atguigu.jxc.domain.SaleDataDayVo;
 import com.atguigu.jxc.domain.SaleListGoodsVo;
 import com.atguigu.jxc.entity.DamageList;
 import com.atguigu.jxc.entity.DamageListGoods;
+import com.atguigu.jxc.entity.SaleList;
+import com.atguigu.jxc.entity.SaleListGoods;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

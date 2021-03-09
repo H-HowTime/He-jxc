@@ -1,13 +1,23 @@
-# Created by .ignore support plugin (hsz.mobi)
-### Java template
 # Compiled class file
-*.class
+
 
 # Log file
 *.log
 
 # BlueJ files
 *.ctxt
+
+# idea files
+
+
+target/
+*.iws
+*.ipr
+*.yml
+*.properties
+**/mvnw
+**/mvnw.cmd
+**/.mvn
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -24,8 +34,8 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-.gitignore
-target/classes/com/
-target/generated-sources/
-target/generated-test-sources/
-target/test-classes/
+
+### VS Code ###
+.vscode/
+/.idea/
+/jxc.sql

@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hehao
@@ -55,5 +56,40 @@ public class SaleListGoodsServiceImpl implements SaleListGoodsService {
         });
         Gson gson = new Gson();
         return gson.toJson(saleDataDayVos);
+    }
+
+
+    @Override
+    public void deleteGoods(Integer saleListId) {
+        this.saleListGoodsDao.deleteGoods(saleListId);
+        this.saleListGoodsDao.deleteSaleList(saleListId);
+    }
+
+    @Override
+    public Map<String, Object> goodsList(Integer saleListId) {
+        Map<String,Object> map = new HashMap<>();
+
+        // 查询类别ID为当前ID或父ID为当前类别ID的商品
+        List<SaleListGoods> saleListGoodsList = saleListGoodsDao.getSaleListGoodsList(saleListId);
+
+        map.put("rows", saleListGoodsList);
+
+//        logService.save(new Log(Log.SELECT_ACTION, "销售单查询"));
+
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> list(String saleNumber, Integer customerId, Integer state, String sTime, String eTime) {
+        Map<String,Object> map = new HashMap<>();
+
+        // 查询类别ID为当前ID或父ID为当前类别ID的商品
+        List<SaleList> saleListGoodsList = saleListGoodsDao.getSaleListList(saleNumber, customerId, state, sTime, eTime);
+
+        map.put("rows", saleListGoodsList);
+
+//        logService.save(new Log(Log.SELECT_ACTION, "销售单查询"));
+
+        return map;
     }
 }

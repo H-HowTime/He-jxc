@@ -24,4 +24,18 @@ public interface SaleListGoodsDao {
 
     List<SaleDataDayVo> getSaleDataByDay(@Param("sTime") String sTime,
                                          @Param("eTime") String eTime);
+
+
+
+    List<SaleList> getSaleListList(@Param("saleNumber") String saleNumber,
+                                   @Param("customerId") Integer customerId,
+                                   @Param("state") Integer state,
+                                   @Param("sTime") String sTime,
+                                   @Param("eTime") String eTime);
+
+    List<SaleListGoods> getSaleListGoodsList(Integer saleListId);
+
+    void deleteGoods(Integer saleListId);
+
+    void deleteSaleList(Integer saleListId);
 }

@@ -85,6 +85,14 @@
         WHERE supplier_id = #{supplierId}
     </select>
 
+    <select id="getSupplierNameById" resultType="java.lang.String">
+        SELECT
+            t_supplier.supplier_name
+        FROM
+            t_supplier
+        WHERE supplier_id = #{supplierId}
+    </select>
+
     <delete id="deleteSupplier" parameterType="java.lang.Integer">
         DELETE FROM
         t_supplier

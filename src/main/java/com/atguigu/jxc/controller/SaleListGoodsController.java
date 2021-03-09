@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 /**
  * @author hehao
  * @create 2021-03-08 12:46
@@ -54,5 +56,34 @@ public class SaleListGoodsController {
                                    @RequestParam("eTime") String eTime) {
         String saleDataDayVosJson = this.saleListGoodsService.getSaleDataByDay(sTime, eTime);
         return saleDataDayVosJson;
+    }
+    /**
+     *
+     * @param saleNumber
+     * @param customerId
+     * @param state
+     * @param sTime
+     * @param eTime
+     * @return
+     */
+    @PostMapping("list")
+    public Map<String,Object> list(String saleNumber, Integer customerId, Integer state, String sTime, String eTime) {
+        return saleListGoodsService.list(saleNumber, customerId, state, sTime,eTime);
+    }
+
+    /**
+     *
+     * @param saleListId
+     * @return
+     */
+    @PostMapping("goodsList")
+    public Map<String,Object> goodsList(Integer saleListId) {
+        return saleListGoodsService.goodsList(saleListId);
+    }
+
+    @PostMapping("delete")
+    public ServiceVO delete(Integer saleListId) {
+        saleListGoodsService.deleteGoods(saleListId);
+        return new ServiceVO<>(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
     }
 }

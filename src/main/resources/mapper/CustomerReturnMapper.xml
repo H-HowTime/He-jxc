@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.jxc.dao.CustomerReturnDao">
+
+    <resultMap id="BaseResultMap" type="com.atguigu.jxc.entity.CustomerReturnList">
+        <id column="customer_return_list_id" property="customerReturnListId" jdbcType="INTEGER"/>
+        <result column="return_number" property="returnNumber" jdbcType="VARCHAR" />
+        <result column="return_date" property="returnDate" jdbcType="VARCHAR" />
+        <result column="amount_paid" property="amountPaid" jdbcType="FLOAT" />
+        <result column="amount_payable" property="amountPayable" jdbcType="FLOAT" />
+        <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="customer_id" property="customerId" jdbcType="INTEGER" />
+        <association property="trueName" column="user_id" select="com.atguigu.jxc.dao.UserDao.getTrueNameById"></association>
+        <association property="customerName" column="customer_id" select="com.atguigu.jxc.dao.CustomerDao.getCustomerNameById"></association>
+    </resultMap>
+
+    <resultMap id="ReturnListGoodsMap" type="com.atguigu.jxc.entity.CustomerReturnListGoods">
+        <id column="customer_return_list_goods_id" property="customerReturnListGoodsId" jdbcType="INTEGER"/>
+        <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR" />
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+        <result column="goods_model" property="goodsModel" jdbcType="VARCHAR" />
+        <result column="goods_unit" property="goodsUnit" jdbcType="VARCHAR" />
+        <result column="goods_num" property="goodsNum" jdbcType="INTEGER" />
+        <result column="price" property="price" jdbcType="FLOAT" />
+        <result column="total" property="total" jdbcType="FLOAT" />
+        <result column="customer_return_list_id" property="customerReturnListId" jdbcType="INTEGER" />
+        <result column="goods_type_id" property="goodsTypeId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="getReturnList" resultMap="BaseResultMap">
+        SELECT
+            t_customer_return_list.customer_return_list_id,
+            t_customer_return_list.return_number,
+            t_customer_return_list.return_date,
+            t_customer_return_list.amount_paid,
+            t_customer_return_list.amount_payable,
+            t_customer_return_list.remarks,
+            t_customer_return_list.state,
+            t_customer_return_list.user_id,
+            t_customer_return_list.customer_id
+        FROM t_customer_return_list
+        <where>
+            <if test="returnNumber != null and returnNumber != ''">
+                AND t_customer_return_list.return_number = #{returnNumber}
+            </if>
+            <if test="customerId != null and customerId != ''">
+                AND t_customer_return_list.customer_id = #{customerId}
+            </if>
+            <if test="state != null and state != ''">
+                AND t_customer_return_list.state = #{state}
+            </if>
+            <if test="sTime != null and sTime != ''">
+                AND t_customer_return_list.return_date &gt;= #{sTime}
+            </if>
+            <if test="eTime != null and eTime != ''">
+                AND t_customer_return_list.return_date &lt;= #{eTime}
+            </if>
+        </where>
+    </select>
+
+    <select id="getReturnGoodsList" resultMap="ReturnListGoodsMap">
+        select * from t_customer_return_list_goods where customer_return_list_goods_id = #{customerReturnListId}
+    </select>
+
+    <delete id="deleteReturnList">
+        delete from t_customer_return_list
+        where customer_return_list_id = #{customerReturnListId}
+    </delete>
+
+    <delete id="deleteReturnGoods">
+        delete from t_customer_return_list_goods
+        where customer_return_list_id = #{customerReturnListId}
+    </delete>
+</mapper>

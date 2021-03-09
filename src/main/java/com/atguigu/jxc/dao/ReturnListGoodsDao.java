@@ -11,4 +11,9 @@ import java.util.List;
  */
 public interface ReturnListGoodsDao {
     void save(@Param("returnListGoodsList") List<ReturnListGoods> returnListGoodsList);
+    List<ReturnList> salesReturn(@Param("returnNumber") String returnNumber,@Param("supplierId") Integer supplierId,@Param("state") Integer state,@Param("sTime")  String sTime,@Param("eTime")  String eTime);
+
+    List<ReturnListGoods> salesReturnNews(Integer returnListId);
+
+    void deleteSalesReturn(Integer returnListId);
 }

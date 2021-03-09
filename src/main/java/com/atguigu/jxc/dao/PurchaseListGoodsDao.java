@@ -20,4 +20,11 @@ public interface PurchaseListGoodsDao {
     int updateState(@Param("purchaseListId") Integer purchaseListId);
 
     List<OrderVO> count(String sTime, String eTime, Integer goodsTypeId, String codeOrName);
+
+
+    List<PurchaseList> findOrderInquity(@Param("purchaseNumber") String purchaseNumber, @Param("supplierId") Integer supplierId, @Param("state") Integer state, @Param("sTime") String sTime, @Param("eTime") String eTime);
+
+    List<PurchaseListGoods> findMerchandiseNewsById(Integer purchaseListId);
+
+    void DeleteOrder(Integer purchaseListId);
 }

@@ -22,4 +22,33 @@
         </foreach>
     </insert>
 
+    <delete id="deleteSalesReturn">
+        DELETE from t_purchase_list_goods where returnListId = #{returnListId}
+    </delete>
+
+    <select id="salesReturn" resultType="com.atguigu.jxc.entity.ReturnList">
+        SELECT trl.*,ts.supplier_name,tu.true_name
+        FROM t_return_list trl
+        LEFT JOIN t_supplier ts
+        ON trl.supplier_id = ts.supplier_id
+        LEFT JOIN t_user tu
+        ON trl.user_id = tu.user_id
+        <where>
+            <if test="returnNumber != null and returnNumber != ''">
+                and trl.return_number like CONCAT('%',#{returnNumber},'%')
+            </if>
+            <if test="supplierId != null and supplierId != ''">
+                and ts.supplier_id = #{supplierId}
+            </if>
+            <if test="state != null and state != ''">
+                and trl.state = #{state}
+            </if>
+            <if test="sTime != null and sTime != '' and eTime != null and eTime != ''">
+                and trl.return_date BETWEEN #{sTime} and #{eTime}
+            </if>
+        </where>
+    </select>
+    <select id="salesReturnNews" resultType="com.atguigu.jxc.entity.ReturnListGoods">
+        SELECT * FROM t_return_list_goods WHERE return_list_id = #{returnListId};
+    </select>
 </mapper>

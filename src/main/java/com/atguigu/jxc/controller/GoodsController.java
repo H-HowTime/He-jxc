@@ -1,11 +1,13 @@
 package com.atguigu.jxc.controller;
 
 import com.atguigu.jxc.domain.ServiceVO;
+import com.atguigu.jxc.domain.SuccessCode;
 import com.atguigu.jxc.entity.Goods;
 import com.atguigu.jxc.service.GoodsService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +23,17 @@ public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
+
+    @GetMapping("incrStore")
+    public ServiceVO incrStore(Integer goodsId,Integer inventoryQuantity){
+        this.goodsService.incrStore(goodsId, inventoryQuantity);
+        return new ServiceVO(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
+    }
+
+    @GetMapping("decrStore")
+    public ServiceVO decrStore(Integer goodsId,Integer inventoryQuantity){
+        return  this.goodsService.decrStore(goodsId, inventoryQuantity);
+    }
 
     /**
      * 分页查询商品库存信息

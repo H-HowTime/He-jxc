@@ -29,4 +29,8 @@ public interface GoodsService {
     ServiceVO saveStock(Integer goodsId,Integer inventoryQuantity,double purchasingPrice);
 
     Map<String,Object> listAlarm();
+
+    void incrStore(Integer goodsId, Integer inventoryQuantity);
+
+  ServiceVO decrStore(Integer goodsId, Integer inventoryQuantity);
 }

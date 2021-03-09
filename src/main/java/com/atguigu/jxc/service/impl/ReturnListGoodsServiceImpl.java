@@ -30,6 +30,9 @@ public class ReturnListGoodsServiceImpl implements ReturnListGoodsService {
     private ReturnListGoodsDao returnListGoodsDao;
 
     @Autowired
+    private ReturnListDao returnListDao;
+
+    @Autowired
     private GoodsService goodsService;
 
     @Override
@@ -74,5 +77,43 @@ public class ReturnListGoodsServiceImpl implements ReturnListGoodsService {
     @Override
     public void deleteSalesReturn(Integer returnListId) {
         this.returnListGoodsDao.deleteSalesReturn(returnListId);
+    }
+
+
+    @Override
+    public void saveCust(CustomerReturnList customerReturnList, String customerReturnListGoodsStr, String returnNumber) {
+
+        returnListDao.saveCust(customerReturnList);
+
+        CustomerReturnListGoods customerReturnListGoods = new CustomerReturnListGoods();
+        Gson gson = new Gson();
+
+        List<CustomerReturnListGoods> ps = gson.fromJson(customerReturnListGoodsStr, new TypeToken<List<CustomerReturnListGoods>>() {
+        }.getType());
+        for (int i = 0; i < ps.size(); i++) {
+            CustomerReturnListGoods p = ps.get(i);
+
+            customerReturnListGoods.setCustomerReturnListGoodsId(p.getCustomerReturnListGoodsId());
+            customerReturnListGoods.setCustomerReturnListId(p.getCustomerReturnListId());
+            customerReturnListGoods.setGoodsCode(p.getGoodsCode());
+            customerReturnListGoods.setGoodsName(p.getGoodsName());
+            customerReturnListGoods.setGoodsId(p.getGoodsId());
+            customerReturnListGoods.setGoodsModel(p.getGoodsModel());
+            customerReturnListGoods.setGoodsTypeId(p.getGoodsTypeId());
+            customerReturnListGoods.setGoodsNum(p.getGoodsNum());
+            customerReturnListGoods.setPrice(p.getPrice());
+            customerReturnListGoods.setGoodsUnit(p.getGoodsUnit());
+            customerReturnListGoods.setTotal(p.getTotal());
+            returnListGoodsDao.save(customerReturnListGoods);
+
+            Integer count = goodsService.query(p.getGoodsId());
+
+            Integer s=count +p.getGoodsNum();
+
+            goodsService.saveStock(p.getGoodsId(),s,p.getPrice());
+
+            //System.out.println(p.toString());
+        }
+
     }
 }

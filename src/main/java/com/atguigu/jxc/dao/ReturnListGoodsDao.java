@@ -17,4 +17,6 @@ public interface ReturnListGoodsDao {
     List<ReturnListGoods> salesReturnNews(Integer returnListId);
 
     void deleteSalesReturn(Integer returnListId);
+
+    void saveCust(CustomerReturnListGoods customerReturnListGoods);
 }

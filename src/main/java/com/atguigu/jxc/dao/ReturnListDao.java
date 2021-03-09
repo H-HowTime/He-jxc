@@ -8,4 +8,6 @@ import com.atguigu.jxc.entity.ReturnList;
  */
 public interface ReturnListDao {
     void save(ReturnList returnList);
+
+    void saveCust(CustomerReturnList customerReturnList);
 }

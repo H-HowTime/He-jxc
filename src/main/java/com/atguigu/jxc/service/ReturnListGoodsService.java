@@ -17,4 +17,6 @@ public interface ReturnListGoodsService {
     Map<String, Object> salesReturnNews(Integer returnListId);
 
     void deleteSalesReturn(Integer returnListId);
+    void saveCust(CustomerReturnList customerReturnList, String customerReturnListGoodsStr, String returnNumber);
+
 }

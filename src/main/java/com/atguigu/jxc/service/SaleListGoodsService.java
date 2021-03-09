@@ -19,5 +19,7 @@ public interface SaleListGoodsService {
     Map<String, Object> goodsList(Integer saleListId);
 
     void deleteGoods(Integer saleListId);
+
+    void save(SaleList saleList, String saleListGoodsStr, String saleNumber);
 }
 

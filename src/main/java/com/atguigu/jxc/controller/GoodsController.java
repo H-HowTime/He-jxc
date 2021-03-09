@@ -171,4 +171,11 @@ public class GoodsController {
     public Map<String,Object> listAlarm() {
         return goodsService.listAlarm();
     }
+
+    @RequestMapping("/query")
+    @ResponseBody
+    public ServiceVO query(Integer goodsId) {
+        Integer counts = goodsService.query(goodsId);
+        return ServiceVO.ok();
+    }
 }

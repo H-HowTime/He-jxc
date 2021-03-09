@@ -25,14 +25,14 @@
 
     <select id="getCustomerList" resultMap="BaseResultMap">
         SELECT
-            t_customer.customer_id,
-            t_customer.customer_name,
-            t_customer.contacts,
-            t_customer.phone_number,
-            t_customer.address,
-            t_customer.remarks
+        t_customer.customer_id,
+        t_customer.customer_name,
+        t_customer.contacts,
+        t_customer.phone_number,
+        t_customer.address,
+        t_customer.remarks
         FROM
-            t_customer
+        t_customer
         <where>
             <if test="customerName != null and customerName != ''">
                 t_customer.customer_name LIKE CONCAT('%', #{customerName} ,'%')
@@ -43,9 +43,9 @@
 
     <select id="getCustomerCount" resultType="java.lang.Integer">
         SELECT
-            COUNT(*)
+        COUNT(*)
         FROM
-            t_customer
+        t_customer
         <where>
             <if test="customerName != null and customerName != ''">
                 t_customer.customer_name LIKE CONCAT('%', #{customerName} ,'%')
@@ -101,6 +101,16 @@
         WHERE customer_id = #{customerId}
     </delete>
 
-
+    <select id="getComboboxList" resultMap="BaseResultMap">
+        SELECT
+            t_customer.customer_id,
+            t_customer.customer_name,
+            t_customer.contacts,
+            t_customer.phone_number,
+            t_customer.address,
+            t_customer.remarks
+        FROM
+            t_customer
+    </select>
 
 </mapper>

@@ -87,4 +87,14 @@ public class SaleListGoodsController {
         saleListGoodsService.deleteGoods(saleListId);
         return new ServiceVO<>(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
     }
+
+    @PostMapping("save")
+    public ServiceVO<Object> save(@RequestParam("saleNumber")String saleNumber,
+                                  SaleList saleList,
+                                  String saleListGoodsStr
+    ) {
+        saleListGoodsService.save(saleList,saleListGoodsStr,saleNumber);
+        return new ServiceVO<>(SuccessCode.SUCCESS_CODE, SuccessCode.SUCCESS_MESS);
+    }
+
 }

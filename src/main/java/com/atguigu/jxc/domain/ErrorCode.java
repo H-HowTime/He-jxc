@@ -38,9 +38,6 @@ public interface ErrorCode {
     int HAS_FORM_ERROR_CODE = 402;
     String HAS_FORM_ERROR_MESS = "该商品有进货或销售单据，不能删除";
 
-    int STORE_OUT_OF_ERROR_CODE = 403;
-    String STORE_OUT_OF_ERROR_MESS = "该商品库存数量不足，不能退货";
-
     int REQ_METHOD_ERR_CODE = 500;
     String REQ_METHOD_ERR_MESS = "请求方式有误,请检查 GET/POST";
 
@@ -62,6 +59,7 @@ public interface ErrorCode {
     int LOGIN_EXPIRE_CODE = 20011;
     String LOGIN_EXPIRE_MESS = "登陆已过期,请重新登陆";
 
-
+    int NONE_STROE_ERROR_CODE = 403;
+    String NONE_STROE_ERROR_MESS = "该商品有库存数量不足";
 
 }

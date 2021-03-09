@@ -8,4 +8,23 @@
         VALUES  (#{returnNumber}, #{returnDate}, #{amountPaid}, #{amountPayable}, #{remarks}, #{state}, #{supplierId}, #{userId})
     </insert>
 
+    <resultMap id="BaseResultMap" type="com.atguigu.jxc.entity.CustomerReturnList">
+        <result column="customer_return_list_id" property="customerReturnListId" jdbcType="INTEGER" />
+        <result column="return_number" property="returnNumber" jdbcType="VARCHAR" />
+        <result column="amount_paid" property="amountPaid" jdbcType="DOUBLE" />
+        <result column="amount_payable" property="amountPayable" jdbcType="DOUBLE" />
+        <result column="return_date" property="returnDate" jdbcType="VARCHAR" />
+        <result column="state" property="state" jdbcType="INTEGER" />
+        <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+        <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+    </resultMap>
+
+    <insert id="saveCust" useGeneratedKeys="true" keyProperty="returnListId" parameterType="com.atguigu.jxc.entity.CustomerReturnList">
+        INSERT INTO t_customer_return_list
+        (customer_return_list_id, return_number, amount_paid, amount_payable, return_date,state,customer_id,remarks,user_id)
+        VALUES (#{customerReturnListId}, #{returnNumber}, #{amountPaid}, #{amountPayable},
+        #{returnDate}, #{state},#{customerId}, #{remarks},  #{userId})
+    </insert>
+
 </mapper>

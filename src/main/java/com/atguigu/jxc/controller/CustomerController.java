@@ -59,4 +59,11 @@ public class CustomerController {
         return customerService.delete(ids);
     }
 
+    @PostMapping("/getComboboxList")
+    public List<Customer> getComboboxList() {
+        List<Customer> CustomerNames = customerService.getComboboxList();
+        return CustomerNames;
+
+    }
+
 }

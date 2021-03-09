@@ -26,6 +26,11 @@ public class SaleListGoodsServiceImpl implements SaleListGoodsService {
 
     @Autowired
     private SaleListGoodsDao saleListGoodsDao;
+    @Autowired
+    private GoodsService goodsService;
+
+    @Autowired
+    private SaleListDao saleListDao;
 
     @Override
     public void updateState(Integer saleListId) {
@@ -94,5 +99,52 @@ public class SaleListGoodsServiceImpl implements SaleListGoodsService {
 //        logService.save(new Log(Log.SELECT_ACTION, "销售单查询"));
 
         return map;
+    }
+
+
+    @SneakyThrows
+    @Override
+    @Transactional
+    public void save(SaleList saleList, String saleListGoodsStr, String saleNumber) {
+        saleList.setSaleNumber(saleNumber);
+        saleListDao.save(saleList);
+//        Integer saleListId = saleList.getSaleListId();
+//
+//
+//        //再保存sale_list_goods
+//        List<Integer> saleListGoodsIds = saleListGoodsDao.querySaleListGoodsId(saleListId);
+        SaleListGoods saleListGoods = new SaleListGoods();
+        Gson gson = new Gson();
+
+        List<SaleListGoods> ps = gson.fromJson(saleListGoodsStr, new TypeToken<List<SaleListGoods>>() {
+        }.getType());
+        for (int i = 0; i < ps.size(); i++) {
+            SaleListGoods p = ps.get(i);
+            saleListGoods.setGoodsName(p.getGoodsName());
+            saleListGoods.setGoodsNum(p.getGoodsNum());
+            saleListGoods.setSaleListGoodsId(p.getSaleListGoodsId());
+            saleListGoods.setTotal(p.getTotal());
+            saleListGoods.setGoodsCode(p.getGoodsCode());
+            saleListGoods.setGoodsId(p.getGoodsId());
+            saleListGoods.setGoodsModel(p.getGoodsModel());
+            saleListGoods.setGoodsTypeId(p.getGoodsTypeId());
+            saleListGoods.setGoodsUnit(p.getGoodsUnit());
+            saleListGoods.setPrice(p.getPrice());
+            saleListGoods.setSaleListId(p.getSaleListId());
+            saleListGoodsDao.save(saleListGoods);
+            Integer count = goodsService.query(p.getGoodsId());
+
+
+            if (count>=p.getGoodsNum()){
+                Integer s= count-p.getGoodsNum();
+
+                goodsService.saveStock(p.getGoodsId(),s,p.getPrice());
+            }else {
+                throw new RuntimeException("该商品库存数量不足");
+            }
+
+            //System.out.println(p.toString());
+        }
+
     }
 }

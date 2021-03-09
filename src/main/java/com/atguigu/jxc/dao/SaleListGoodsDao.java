@@ -40,4 +40,9 @@ public interface SaleListGoodsDao {
     void deleteGoods(Integer saleListId);
 
     void deleteSaleList(Integer saleListId);
+
+    List<Integer> querySaleListGoodsId(Integer saleListId);
+
+    void save(SaleListGoods saleListGoods);
 }
+

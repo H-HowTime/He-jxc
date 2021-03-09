@@ -6,6 +6,7 @@ import com.atguigu.jxc.entity.PurchaseList;
 import com.atguigu.jxc.entity.PurchaseListGoods;
 import com.atguigu.jxc.service.GoodsService;
 import com.atguigu.jxc.service.PurchaseListGoodsService;
+import com.atguigu.jxc.vo.OrderVO;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -48,6 +49,7 @@ public class PurchaseListGoodsServiceImpl implements PurchaseListGoodsService {
     }
 
     public void updateState(Integer purchaseListId) {
+        purchaseListGoodsDao.updateState(purchaseListId);
     }
 
     public String count(String sTime, String eTime, Integer goodsTypeId, String codeOrName) {

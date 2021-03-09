@@ -16,6 +16,7 @@ public class ReturnList {
   private Integer state;
   private Integer customerId;
   private Integer userId;
+  private Integer supplierId;
 
   private String customerName;
   private String trueName;

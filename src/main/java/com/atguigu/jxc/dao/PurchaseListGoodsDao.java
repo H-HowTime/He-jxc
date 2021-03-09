@@ -2,6 +2,7 @@ package com.atguigu.jxc.dao;
 
 import com.atguigu.jxc.entity.PurchaseList;
 import com.atguigu.jxc.entity.PurchaseListGoods;
+import com.atguigu.jxc.vo.OrderVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
